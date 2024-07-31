@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${ptSerif.className}`}>{children}</body>
+      <body className={`${ptSerif.className} bg-gray-100`}>{children}</body>
     </html>
   );
 }
