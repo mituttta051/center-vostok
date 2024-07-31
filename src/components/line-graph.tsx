@@ -76,7 +76,7 @@ export default function LineGraph() {
         },
     };
     return (
-        <div className={`p-20 rounded-lg shadow-md bg-gray-100`}>
+        <div className={`p-20 rounded-lg bg-gray-100`}>
             <h2 className="text-4xl font-bold mb-8 animate-fade-in-down text-right pr-4">Стабильно вверх</h2>
             <Line data={data} options={options}/>
         </div>
