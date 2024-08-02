@@ -10,6 +10,7 @@ import {
     Tooltip,
 } from "chart.js";
 import React from "react";
+import SectionTitle from "@/components/common/section-title";
 
 // Register the components
 ChartJS.register(
@@ -48,7 +49,7 @@ export default function LineGraph() {
             x: {
                 title: {
                     display: true,
-                    text: 'Года',
+                    text: 'года',
                 },
             },
             y: {
@@ -77,7 +78,7 @@ export default function LineGraph() {
     };
     return (
         <div className={`p-20 rounded-lg bg-gray-100`}>
-            <h2 className="text-4xl font-bold mb-8 animate-fade-in-down text-right pr-4">Стабильно вверх</h2>
+            <SectionTitle title={"Стабильно вверх"}  className={"text-right"}/>
             <Line data={data} options={options}/>
         </div>
     );
