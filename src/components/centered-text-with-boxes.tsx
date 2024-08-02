@@ -1,42 +1,52 @@
 import React from 'react';
 
 export default function CenteredTextWithBoxes() {
-    const commonStyles = "h-full shadow-md rounded-lg flex text-center items-center justify-center text-lg py-10 max-w-48 px-5"
+    const commonStyles = "relative flex items-center bg-black opacity-70 justify-center h-full shadow-lg rounded-lg text-center text-lg min-h-[200px]";
     return (
-        <div className="relative min-h-[800px] flex items-center justify-center bg-gray-100">
-            <div
-                className="absolute grid grid-rows-3 grid-cols-3 gap-4 justify-items-center items-stretch justify-center w-full max-w-screen-xl p-10">
+        <div className="min-h-[800px] flex items-center justify-center bg-gray-100 px-10">
+            <div className="grid lg:grid-rows-3 lg:grid-cols-5 gap-4 grid-rows-6 justify-items-stretch items-stretch justify-center w-full max-w-screen-xl">
                 {/* Two boxes above the main text */}
-                <div className="grid grid-cols-5 col-span-3 row-start-1">
-                    <div
-                        className={`text-default-darkBlue col-start-2 ${commonStyles}`}>
-                        <p className="break-words">Транспортно-экспедиционные услуги</p>
-                    </div>
-                    <div
-                        className={`text-default-violet-50 col-start-4 ${commonStyles}`}>
-                        <p className="break-words ">Организация перевозок грузов</p>
-                    </div>
-                </div>
+                <figure className={`lg:col-start-2 lg:row-start-1 ${commonStyles}`}>
+                    <img className="absolute inset-0 w-full h-full object-cover rounded-lg opacity-50" src="/train-aesthetics/two-trains.jpg" alt="image description" />
+                    <figcaption className="relative z-10 text-lg text-white px-5">
+                        <p>Транспортно-экспедиционные услуги</p>
+                    </figcaption>
+                </figure>
+
+                <figure className={`lg:col-start-4 lg:row-start-1 ${commonStyles}`}>
+                    <img className="absolute inset-0 w-full h-full object-cover rounded-lg opacity-50" src="/train-aesthetics/rails-no-train.jpg" alt="image description" />
+                    <figcaption className="relative z-10 text-lg text-white px-5">
+                        <p>Организация перевозок грузов</p>
+                    </figcaption>
+                </figure>
+
                 {/* Two boxes on the same line as the main text */}
-                <div
-                    className={`text-default-violet-50 col-start-1 row-start-2 ${commonStyles}`}>
-                    <p className="break-words">Диспетчеризация продвижения грузов</p>
-                </div>
-                <div
-                    className={`text-default-darkBlue col-start-3 row-start-2 ${commonStyles}`}>
-                    <p className="break-words">Организация рабочих мест с последующим карьерным ростом</p>
-                </div>
+                <figure className={`lg:row-start-2 lg:col-start-1 ${commonStyles}`}>
+                    <img className="absolute inset-0 w-full h-full object-cover rounded-lg opacity-50" src="/train-aesthetics/train.jpg" alt="image description" />
+                    <figcaption className="relative z-10 text-lg text-white px-5">
+                        <p>Диспетчеризация продвижения грузов</p>
+                    </figcaption>
+                </figure>
 
                 {/* Main Text */}
-                <div className="col-start-2 row-start-2 h-full flex text-center items-center justify-center py-10 max-w-48 px-5">
+                <div className="lg:col-start-3 lg:row-start-2 h-full flex text-center items-center justify-center py-10 px-5 order-first lg:order-none">
                     <h1 className="text-4xl font-bold">Центр Восток - это</h1>
                 </div>
 
+                <figure className={`lg:col-start-5 lg:row-start-2 ${commonStyles}`}>
+                    <img className="absolute inset-0 w-full h-full object-cover rounded-lg opacity-50" src="/train-aesthetics/station.jpg" alt="image description" />
+                    <figcaption className="relative z-10 text-lg text-white px-5">
+                        <p>Организация рабочих мест с последующим карьерным ростом</p>
+                    </figcaption>
+                </figure>
+
                 {/* One box below the main text */}
-                <div
-                    className={`text-default-violet-50 col-start-2 row-start-3 ${commonStyles}`}>
-                    <p className="break-words">Оплата ЖД тарифа</p>
-                </div>
+                <figure className={`lg:col-start-3 lg:row-start-3 ${commonStyles}`}>
+                    <img className="absolute inset-0 w-full h-full object-cover rounded-lg opacity-50" src="/train-aesthetics/rails.jpg" alt="image description" />
+                    <figcaption className="relative z-10 text-lg text-white px-5">
+                        <p>Оплата ЖД тарифа</p>
+                    </figcaption>
+                </figure>
             </div>
         </div>
     );
