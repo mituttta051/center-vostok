@@ -14,7 +14,7 @@ export default function Hero() {
             </video>
             <div className="relative z-10 p-4">
                 <h1 className="text-4xl md:text-6xl text-gray-200 font-bold">
-                    Перевозим ваш бизнес вперед
+                    С нами надежно!
                 </h1>
             </div>
         </div>
