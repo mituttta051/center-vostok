@@ -9,7 +9,7 @@ interface VacancyCardProps {
 
 const VacancyCard: React.FC<VacancyCardProps> = ({skills, title, description}) => {
     return (
-        <div className="max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="md:w-[450px] mx-auto bg-white rounded-lg shadow-md overflow-hidden">
             <div className="px-6 py-4">
                 <div className="flex flex-wrap gap-2 mb-4">
                     {skills.map((skill, index) => (
