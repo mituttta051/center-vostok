@@ -1,6 +1,10 @@
 import React from 'react';
-import {FaCog, FaHome, FaUser} from 'react-icons/fa';
+import {FaCog, FaHome, FaUser, FaHandshake, FaTrain, FaPhoneAlt, FaBriefcase} from 'react-icons/fa';
+import {FaCalculator, FaLocationDot, FaUsers} from "react-icons/fa6";
+import { GiCoalWagon } from "react-icons/gi";
+import {BsGraphUp, BsGraphUpArrow} from "react-icons/bs";
 import Overlay from "@/components/common/overlay";
+import Link from "next/link";
 
 interface SidebarProps {
     isOpen: boolean;
@@ -16,13 +20,13 @@ export default function Sidebar(props: SidebarProps) {
                     props.isOpen ? '' : '-translate-x-full'
                 }`}>
                 <ul className="flex flex-col flex-1 text-default-violet-900 text-lg font-medium">
-                    <SidebarItem icon={<FaHome/>} name="Главная"/>
-                    <SidebarItem icon={<FaUser/>} name="О компании"/>
-                    <SidebarItem icon={<FaCog/>} name="Рассчет расстояния"/>
-                    <SidebarItem icon={<FaCog/>} name="Запрос услуги"/>
-                    <SidebarItem icon={<FaCog/>} name="Вакансии"/>
-                    <SidebarItem icon={<FaCog/>} name="Наши клиенты"/>
-                    <SidebarItem icon={<FaCog/>} name="Контакты"/>
+                    <SidebarItem icon={<FaHome/>} name="Главная" link={"/"} toggleMenu={props.toggleMenu}/>
+                    <SidebarItem icon={<FaUser/>} name="О компании" link={""} toggleMenu={props.toggleMenu}/>
+                    <SidebarItem icon={<FaCalculator/>} name="Рассчет расстояния" link={""} toggleMenu={props.toggleMenu}/>
+                    <SidebarItem icon={<FaTrain/>} name="Запрос услуги" link={""} toggleMenu={props.toggleMenu}/>
+                    <SidebarItem icon={<FaUsers/>} name="Наши клиенты" link={""} toggleMenu={props.toggleMenu}/>
+                    <SidebarItem icon={<FaBriefcase/>} name="Вакансии" link={""} toggleMenu={props.toggleMenu}/>
+                    <SidebarItem icon={<FaLocationDot/>} name="Контакты" link={""} toggleMenu={props.toggleMenu}/>
                 </ul>
             </div>
         </>
@@ -32,14 +36,18 @@ export default function Sidebar(props: SidebarProps) {
 interface SidebarItemProps {
     icon: React.ReactNode;
     name: string;
+    link: string;
+    toggleMenu: () => void;
 
 }
 
 export function SidebarItem(props: SidebarItemProps) {
     return (
         <li className="flex items-center px-4 py-2 hover:bg-violet-200 rounded-lg mx-2 cursor-pointer transition-colors duration-200">
-            <span className="mr-3">{props.icon}</span>
-            <span>{props.name}</span>
+            <Link className={"flex items-center w-full"} href={props.link} onClick={props.toggleMenu}>
+                <span className="mr-3">{props.icon}</span>
+                <span>{props.name}</span>
+            </Link>
         </li>
     );
 }
