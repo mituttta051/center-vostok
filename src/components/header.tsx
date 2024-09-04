@@ -7,7 +7,7 @@ interface HeaderProps {
 export default function Header(props: HeaderProps) {
 
     return (
-        <header className="z-50 bg-violet-50 text-default-violet-900 py-4 border-b border-b-violet-200">
+        <header className="z-60 bg-violet-50 text-default-violet-900 py-4 border-b border-b-violet-200">
             <div className="w-full px-4 flex justify-between items-center">
                 <div className="flex items-center space-x-3">
                     <HiMenu className="h-8 w-8 cursor-pointer" onClick={props.toggleMenu}/>

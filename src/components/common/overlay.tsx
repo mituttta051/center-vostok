@@ -1,12 +1,33 @@
+import React, { useEffect } from 'react';
+
 interface OverlayProps {
-    onClick?: () => void;
+    isVisible: boolean;
+    onClose: () => void;
 }
 
-export default function Overlay(props: OverlayProps) {
+const Overlay: React.FC<OverlayProps> = ({ isVisible, onClose }) => {
+    useEffect(() => {
+        if (isVisible) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isVisible]);
+
+    if (!isVisible) return null;
+
     return (
         <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-30 overflow-hidden"
-            onClick={props.onClick}
-        ></div>
+            className="fixed inset-0 bg-black bg-opacity-50 z-30 flex items-center justify-center"
+            onClick={onClose}
+        >
+
+        </div>
     );
-}
+};
+
+export default Overlay;
