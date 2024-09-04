@@ -1,5 +1,7 @@
 import React from 'react';
 import SectionTitle from "@/components/common/section-title";
+import Button from "@/components/common/button";
+import {useRouter} from "next/navigation";
 
 interface VacancyCardProps {
     skills: string[];
@@ -8,8 +10,9 @@ interface VacancyCardProps {
 }
 
 const VacancyCard: React.FC<VacancyCardProps> = ({skills, title, description}) => {
+    const router = useRouter();
     return (
-        <div className="md:w-[450px] mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="md:w-[450px] mx-auto bg-white rounded-lg shadow-md overflow-hidden" id='vacancy'>
             <div className="px-6 py-4">
                 <div className="flex flex-wrap gap-2 mb-4">
                     {skills.map((skill, index) => (
@@ -25,9 +28,7 @@ const VacancyCard: React.FC<VacancyCardProps> = ({skills, title, description}) =
                 {description}
             </div>
             <div className="px-6 py-4">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Откликнуться
-                </button>
+                <Button className={"bg-default-violet-500 hover:bg-default-violet-900"} onClick={() => router.push("/vacancy")} type={"button"}>Откликнуться</Button>
             </div>
         </div>
     );
