@@ -18,6 +18,7 @@ const config: Config = {
             violet: {
                 50: "#9D41D5",
                 500: "#842BBB",
+                700: "#7931f1",
                 900: "#593087"
             },
             lightBlue: "#5FCDFA",
