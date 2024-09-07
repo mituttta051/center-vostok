@@ -1,10 +1,8 @@
 import React from 'react';
-import {FaCog, FaHome, FaUser, FaHandshake, FaTrain, FaPhoneAlt, FaBriefcase} from 'react-icons/fa';
+import {FaBriefcase, FaHome, FaTrain, FaUser} from 'react-icons/fa';
 import {FaCalculator, FaLocationDot, FaUsers} from "react-icons/fa6";
-import { GiCoalWagon } from "react-icons/gi";
-import {BsGraphUp, BsGraphUpArrow} from "react-icons/bs";
-import Overlay from "@/components/common/overlay";
 import Link from "next/link";
+import Header from "@/components/header";
 
 interface SidebarProps {
     isOpen: boolean;
@@ -14,7 +12,6 @@ interface SidebarProps {
 export default function Sidebar(props: SidebarProps) {
     return (
         <>
-            {props.isOpen && <Overlay onClick={props.toggleMenu}/>}
             <div
                 className={`pt-2 fixed left-0 h-screen w-64 rounded-r-lg shadow-lg flex flex-col z-50 bg-violet-50 transition-transform ${
                     props.isOpen ? '' : '-translate-x-full'
@@ -23,10 +20,10 @@ export default function Sidebar(props: SidebarProps) {
                     <SidebarItem icon={<FaHome/>} name="Главная" link={"/"} toggleMenu={props.toggleMenu}/>
                     <SidebarItem icon={<FaUser/>} name="О компании" link={""} toggleMenu={props.toggleMenu}/>
                     <SidebarItem icon={<FaCalculator/>} name="Рассчет расстояния" link={""} toggleMenu={props.toggleMenu}/>
-                    <SidebarItem icon={<FaTrain/>} name="Запрос услуги" link={""} toggleMenu={props.toggleMenu}/>
-                    <SidebarItem icon={<FaUsers/>} name="Наши клиенты" link={""} toggleMenu={props.toggleMenu}/>
-                    <SidebarItem icon={<FaBriefcase/>} name="Вакансии" link={""} toggleMenu={props.toggleMenu}/>
-                    <SidebarItem icon={<FaLocationDot/>} name="Контакты" link={""} toggleMenu={props.toggleMenu}/>
+                    <SidebarItem icon={<FaTrain/>} name="Запрос услуги" link={"/request"} toggleMenu={props.toggleMenu}/>
+                    <SidebarItem icon={<FaUsers/>} name="Наши клиенты" link={"#client"} toggleMenu={props.toggleMenu}/>
+                    <SidebarItem icon={<FaBriefcase/>} name="Вакансии" link={"/vacancy"} toggleMenu={props.toggleMenu}/>
+                    <SidebarItem icon={<FaLocationDot/>} name="Контакты" link={"#contact"} toggleMenu={props.toggleMenu}/>
                 </ul>
             </div>
         </>
