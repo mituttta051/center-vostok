@@ -33,7 +33,7 @@ const icons = [
 export default function IconsSection() {
     return (
         <>
-            <div className="container mx-auto px-4 py-8">
+            <div className="container mx-auto px-4 py-8 h-screen" id="client">
                 <SectionTitle title={"Наши клиенты"} className={"ml-10 mb-10"}/>
                 <div className="grid md:grid-cols-9 grid-cols-3 gap-8">
                     {icons.map((item, index) => (

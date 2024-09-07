@@ -36,7 +36,7 @@ export default function SectionWithColumns() {
         },
     ];
     return (
-        <section className="py-12 bg-gray-100">
+        <section className="py-12 h-screen">
             <div className="container mx-auto px-4 text-center">
                 <SectionTitle title={"Ценности компании"}/>
                 <div className="flex flex-col md:flex-row justify-around">

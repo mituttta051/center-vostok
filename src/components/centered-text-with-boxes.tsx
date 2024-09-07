@@ -3,7 +3,7 @@ import React from 'react';
 export default function CenteredTextWithBoxes() {
     const commonStyles = "relative flex items-center bg-black opacity-70 justify-center h-full shadow-lg rounded-lg text-center text-lg min-h-[200px]";
     return (
-        <div className="min-h-[800px] flex items-center justify-center bg-gray-100 px-10">
+        <div className="h-screen flex items-center justify-center px-10">
             <div className="grid lg:grid-rows-3 lg:grid-cols-5 gap-4 grid-rows-6 justify-items-stretch items-stretch justify-center w-full max-w-screen-xl">
                 {/* Two boxes above the main text */}
                 <figure className={`lg:col-start-2 lg:row-start-1 ${commonStyles}`}>

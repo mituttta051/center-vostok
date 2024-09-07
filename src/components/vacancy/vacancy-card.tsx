@@ -36,7 +36,7 @@ const VacancyCard: React.FC<VacancyCardProps> = ({skills, title, description}) =
 
 export default function VacancySection() {
     return (
-        <section className="py-8 bg-gray-100">
+        <section className="py-8 h-screen">
             <div className="container mx-auto px-4">
                 <SectionTitle title={"Стань частью нашей команды"} className={"text-center"}/>
                 <VacancyCard
