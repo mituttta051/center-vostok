@@ -1,50 +1,51 @@
 import React from "react";
+import Link from "next/link";
+import {FaEnvelope, FaMap, FaPhoneAlt} from "react-icons/fa";
 
-interface ContactSectionProps {
-    address: string;
-    phoneNumber: string;
-    emailAddress: string;
-    link1: { text: string; href: string };
-    link2: { text: string; href: string };
-}
-
-const ContactSection: React.FC<ContactSectionProps> = ({
-                                                           address,
-                                                           phoneNumber,
-                                                           emailAddress,
-                                                           link1,
-                                                           link2,
-                                                       }) => {
+const ContactSection: React.FC = () => {
+    const contactItems = [
+        {icon: <FaPhoneAlt className={"mr-2"}/>, text: "+7(989)-262-03-05"},
+        {icon: <FaEnvelope className={"mr-2"}/>, text: "cv-tk@mail.ru"},
+        {icon: <FaMap className={"mr-2"}/>, text: "г. Краснодар, ул. 1 Мая, 304"}
+    ]
     return (
-        <div className="bg-gray-100 p-8 rounded-lg shadow-lg max-w-lg mx-auto">
-            <h2 className="text-2xl font-bold mb-6 text-center">Contact Us</h2>
-            <div className="mb-4">
-                <h3 className="text-xl font-semibold">Address</h3>
-                <p className="text-gray-700">{address}</p>
-            </div>
-            <div className="mb-4">
-                <h3 className="text-xl font-semibold">Phone Number</h3>
-                <p className="text-gray-700">{phoneNumber}</p>
-            </div>
-            <div className="mb-4">
-                <h3 className="text-xl font-semibold">Email Address</h3>
-                <p className="text-gray-700">{emailAddress}</p>
-            </div>
-            <div className="flex justify-between">
-                <a
-                    href={link1.href}
-                    className="text-blue-500 hover:underline font-semibold"
-                >
-                    {link1.text}
-                </a>
-                <a
-                    href={link2.href}
-                    className="text-blue-500 hover:underline font-semibold"
-                >
-                    {link2.text}
-                </a>
-            </div>
-        </div>
+        <>
+            <footer className="flex justify-end" id={"contact"}>
+                <div className=" w-full px-8">
+                    <div className="md:flex md:justify-between ">
+                        <div>
+                            <div className="mb-6 md:mb-0">
+                                <img src="/Remove-BG.AI%20image.png" className="h-36 me-3"
+                                     alt="Logo"/>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-16 content-center justify-items-center items-center">
+                            {contactItems.map((item, index) => (
+                                <div key={index} className="flex items-center text-gray-500">
+                                    {item.icon}
+                                    <p className="text-gray-500">{item.text}</p>
+                                </div>
+                            ))}
+
+                            <Link
+                                href='/vacancy'
+                                className="text-gray-500"
+                            >
+                                Вакансии
+                            </Link>
+
+                            <Link
+                                href='/request'
+                                className="text-gray-500"
+                            >
+                                Запрос услуг
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </>
     );
 };
 
