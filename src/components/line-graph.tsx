@@ -60,13 +60,13 @@ function Timeline({onHover, onLeave}: { onHover: (index: number) => void, onLeav
             <TimelineItem year={"2009"} text={"Общее количество перевезенного груза составило 11тыс.тонн."} index={0}
                           onHover={onHover} onLeave={onLeave}/>
             <TimelineItem year={"2015"}
-                          text={"В этом году были налажены партнёрские отношения с такими заводами как Технониколь, Новороссийский прокатный завод, Кнауф, Абинский металлургический завод, Макфа, и количество доставленного груза составило 25 тысяч тонн."}
+                          text={"Были налажены партнёрские отношения с такими заводами как Технониколь, Новороссийский прокатный завод, Кнауф, Абинский металлургический завод, Макфа, и количество доставленного груза составило 25 тысяч тонн."}
                           index={1} onHover={onHover} onLeave={onLeave}/>
-            <TimelineItem year={"2018"} text={""} index={2} onHover={onHover} onLeave={onLeave}/>
+            <TimelineItem year={"2018"} text={"Аренда 30 крытых вагонов, перевезено 127 тысяч тонн груза"} index={2} onHover={onHover} onLeave={onLeave}/>
             <TimelineItem year={"2022"}
                           text={"На момент середины 2022 года количество доставленного груза составило уже 295 тысяч тонн, партнёрская работа со всеми крупными заводами России по всей сети железной дороги."}
                           index={3} onHover={onHover} onLeave={onLeave}/>
-            <TimelineItem year={"2023"} text={""} index={4} onHover={onHover} onLeave={onLeave}/>
+            <TimelineItem year={"2023"} text={"Компания становится собственником вагонов,  перевезено 432150 тонн"} index={4} onHover={onHover} onLeave={onLeave}/>
         </ol>
     );
 }
@@ -79,7 +79,7 @@ export default function LineGraph() {
         datasets: [
             {
                 label: 'Количество тонн перевезенных грузов',
-                data: [11, 25, 0, 295, 0],
+                data: [11, 25, 127, 295, 432.15],
                 fill: false,
                 borderColor: 'rgb(120,82,183)',
                 pointBackgroundColor: 'rgb(120,82,183)',
@@ -88,9 +88,9 @@ export default function LineGraph() {
                 customTooltipData: [
                     [' 2009 год:', 'Общее количество перевезенного груза составило 11тыс.тонн.'],
                     [' В 2015 году были налажены партнёрские отношения', ' с такими заводами как Технониколь, Новороссийский прокатный завод,', ' Кнауф, Абинский металлургический завод, Макфа,', ' и количество доставленного груза составило 25 тысяч тонн.'],
-                    [''],
-                    [' На момент середины 2022 года', ' количество доставленного груза составило уже 295 тысяч тонн,', ' партнёрская работа со всеми крупными заводами России', ' по всей сети железной дороги. '],
-                    ['']
+                    ['Аренда 30 крытых вагонов, перевезено 127 тысяч тонн груза'],
+                    ['На момент середины 2022 года', ' количество доставленного груза составило уже 295 тысяч тонн,', ' партнёрская работа со всеми крупными заводами России', ' по всей сети железной дороги. '],
+                    ['Компания становится собственником вагонов,  перевезено 432150 тонн']
                 ],
             },
         ],
@@ -107,7 +107,7 @@ export default function LineGraph() {
             y: {
                 title: {
                     display: true,
-                    text: 'тонны',
+                    text: 'тонн груза',
                 },
             },
         },
@@ -156,14 +156,14 @@ export default function LineGraph() {
     }, []);
 
     return (
-        <div className={`p-20 rounded-lg bg-gray-100`}>
+        <div className={`p-20 rounded-lg`}>
             <div className="flex flex-col items-center justify-center">
-                <SectionTitle title={"Стабильно вверх"} className={"text-center mb-4"}/>
                 <div className="flex flex-row w-full">
-                    <div className="w-2/3">
+                    <div className="w-2/3 self-center justify-self-center">
                         <Line ref={chartRef} data={data} options={options}/>
                     </div>
                     <div className="w-1/3 pl-4">
+                        <SectionTitle title={"Стабильно вверх"} className={"text-center mb-24"}/>
                         <Timeline onHover={handleTimelineHover} onLeave={handleTimelineLeave}/>
                     </div>
                 </div>
