@@ -22,7 +22,7 @@ export default function Home() {
         setIsOpen(!isOpen);
     };
     return (
-        <div className={"relative"}>
+        <div className={"relative bg-gradient-to-b from-gray-100 via-purple-50 via-80% to-purple-200"}>
             <Header toggleMenu={toggleMenu}/>
             <Sidebar isOpen={isOpen} toggleMenu={toggleMenu}/>
             <Hero/>
@@ -35,9 +35,7 @@ export default function Home() {
             <Carousel/>
             <VacancySection/>
             <InspiringQuote/>
-            <ContactSection address={"Краснодар"} phoneNumber={"+7 (989) 262-03-05"}
-                            emailAddress={"aboba@supertrain.com"} link1={{text: "text", href: "text"}}
-                            link2={{text: "text", href: "text"}}/>
+            <ContactSection />
             <Overlay isVisible={isOpen} onClose={toggleMenu}/>
         </div>
     )
