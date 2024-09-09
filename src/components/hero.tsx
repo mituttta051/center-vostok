@@ -1,4 +1,5 @@
 import React from 'react';
+import {motion} from 'framer-motion'
 
 export default function Hero() {
     return (
@@ -9,13 +10,19 @@ export default function Hero() {
                 loop
                 muted
             >
-                <source src="/beutiful-trains.mp4" type="video/mp4" />
+                <source src="/beutiful-trains.mp4" type="video/mp4"/>
                 Your browser does not support the video tag.
             </video>
             <div className="relative z-10 p-4">
-                <h1 className="text-4xl md:text-6xl text-gray-200 font-bold">
+                <motion.div
+                    className={"text-5xl md:text-7xl text-white font-bold"}
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    transition={{duration: 3}}
+                >
                     С нами надежно!
-                </h1>
+
+                </motion.div>
             </div>
         </div>
     );
