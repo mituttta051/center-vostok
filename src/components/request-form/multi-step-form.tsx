@@ -1,6 +1,6 @@
 'use client';
-import React, { ChangeEvent, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, {ChangeEvent, useState} from 'react';
+import {AnimatePresence, motion} from 'framer-motion';
 import WagonCargoData from "@/components/request-form/utils/form-data";
 import FormMethods from "@/components/request-form/utils/form-methods";
 import ProgressBar from "@/components/request-form/progress-bar";
@@ -24,7 +24,7 @@ export default function MultiStepForm() {
         wagonTypeForCargo: '',
         desiredDirection: '',
         cargoType: '',
-        desiredRate: 100,
+        desiredRate: 0,
         wagonRequirements: '',
         name: '',
         phone: '',
@@ -42,10 +42,10 @@ export default function MultiStepForm() {
             <AnimatePresence mode="wait">
                 <motion.div
                     key={step}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    initial={{opacity: 0, x: 50}}
+                    animate={{opacity: 1, x: 0}}
+                    exit={{opacity: 0, x: -50}}
+                    transition={{duration: 0.3, ease: "easeInOut"}}
                     className="flex h-full"
                 >
                     {(() => {
@@ -148,20 +148,24 @@ export default function MultiStepForm() {
                                     </Step>
                                 ) : (
                                     <Step title="Дополнительная информация">
-                                        <InputField
-                                            label="Желаемая ставка"
-                                            name="desiredRate"
-                                            value={formData.desiredRate}
-                                            type="number"
-                                            handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
-                                        />
-                                        <InputField
-                                            label="Требование к вагону"
-                                            name="wagonRequirements"
-                                            value={formData.wagonRequirements}
-                                            type="text"
-                                            handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
-                                        />
+                                        <div className={"mb-3"}>
+                                            <InputField
+                                                label="Желаемая ставка"
+                                                name="desiredRate"
+                                                value={formData.desiredRate === 0 ? "" : formData.desiredRate}
+                                                type="number"
+                                                handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            />
+                                        </div>
+                                        <div>
+                                            <InputField
+                                                label="Требование к вагону"
+                                                name="wagonRequirements"
+                                                value={formData.wagonRequirements}
+                                                type="text"
+                                                handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            />
+                                        </div>
                                     </Step>
                                 );
                             case 3:
@@ -174,7 +178,7 @@ export default function MultiStepForm() {
                                             type="text"
                                             handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
                                         />
-                                        <div className="flex justify-between">
+                                        <div className="flex justify-start gap-5 mt-5">
                                             <RadioInput
                                                 label="Телефон"
                                                 name="preferredContact"
@@ -192,23 +196,25 @@ export default function MultiStepForm() {
                                                 handleChange={handleContactChange}
                                             />
                                         </div>
-                                        {preferredContact === 'phone' ? (
-                                            <InputField
-                                                label="Телефон"
-                                                name="phone"
-                                                value={formData.phone}
-                                                type="tel"
-                                                handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
-                                            />
-                                        ) : (
-                                            <InputField
-                                                label="Email"
-                                                name="email"
-                                                value={formData.email}
-                                                type="email"
-                                                handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
-                                            />
-                                        )}
+                                        <div className={"mt-3"}>
+                                            {preferredContact === 'phone' ? (
+                                                <InputField
+                                                    label="Телефон"
+                                                    name="phone"
+                                                    value={formData.phone}
+                                                    type="tel"
+                                                    handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                                />
+                                            ) : (
+                                                <InputField
+                                                    label="Email"
+                                                    name="email"
+                                                    value={formData.email}
+                                                    type="email"
+                                                    handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                                />
+                                            )}
+                                        </div>
                                     </Step>
                                 );
                             default:

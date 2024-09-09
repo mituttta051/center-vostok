@@ -1,6 +1,7 @@
 import {ChangeEvent, FormEvent} from "react";
 import WagonCargoData from "@/components/request-form/utils/form-data";
 import axios from "axios";
+import {toast} from 'react-hot-toast';
 
 export default class FormMethods {
     public static async handleSubmit(event: FormEvent<HTMLFormElement>, formData: WagonCargoData, preferredContact: string) {
@@ -53,10 +54,10 @@ export default class FormMethods {
                 chat_id: chatId,
                 text: message,
             });
-            alert('Form data sent to Telegram!');
+            toast.success('Заявка успешно отправлена!');
         } catch (error) {
             console.error('Error sending message to Telegram:', error);
-            alert('Failed to send form data to Telegram.');
+            toast.error('Произошла ошибка при отправке заявки, попробуйте позже.');
         }
     };
 
