@@ -4,6 +4,8 @@ import "./globals.css";
 import {Toaster} from "react-hot-toast";
 import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
+import Overlay from "@/components/common/overlay";
+import React from "react";
 
 
 const ptSerif = PT_Serif({subsets: ["latin"], weight: ["400", "700"], style: ["normal", "italic"]});
@@ -29,6 +31,7 @@ export default function RootLayout({
         <Header/>
         <Sidebar/>
         {children}
+        <Overlay/>
         </body>
         </html>
     );

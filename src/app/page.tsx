@@ -27,7 +27,6 @@ export default function Home() {
             <VacancySection/>
             <InspiringQuote/>
             <ContactSection/>
-            <Overlay/>
         </div>
     )
 }
