@@ -10,7 +10,7 @@ interface ImageViewerProps {
 export default function ImageViewer(props: ImageViewerProps) {
     return (
         <div className="fixed inset-0 flex justify-center items-center">
-            <Overlay onClick={() => props.unselectImage()}/>
+            <Overlay/>
             <div className="relative z-50 lg:w-[800px] w-[400px]">
                 <Image src={props.selectedImage} alt={props.selectedImage} layout="responsive" width={500} height={300} />
             </div>
