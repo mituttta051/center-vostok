@@ -11,7 +11,7 @@ export default function CenteredTextWithBoxes() {
     };
 
     return (
-        <div className="h-screen flex items-center justify-center px-10">
+        <div className="h-screen flex items-center justify-center px-10" id={"about-us"}>
             <div className="grid lg:grid-rows-3 lg:grid-cols-5 gap-4 grid-rows-6 justify-items-stretch items-stretch justify-center w-full max-w-screen-xl">
                 {/* Two boxes above the main text */}
                 <motion.figure

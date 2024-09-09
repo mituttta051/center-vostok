@@ -2,12 +2,13 @@
 import React, {useState} from 'react';
 import FormField from "@/components/vacancy/form-field";
 import Button from "@/components/common/button";
+import {useRouter} from "next/navigation";
+import {toast} from "react-hot-toast";
 
 const VacancyForm: React.FC = () => {
+    const router = useRouter();
     const [formData, setFormData] = useState({
         name: '',
-        surname: '',
-        patronymic: '',
         phone: '',
         email: '',
         file: null as File | null,
@@ -26,7 +27,8 @@ const VacancyForm: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log(formData);
-        // Handle form submission logic
+        router.push('/');
+        toast.success('Резюме успешно отправлено!');
     };
 
     return (

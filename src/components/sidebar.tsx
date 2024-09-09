@@ -4,6 +4,7 @@ import {FaBriefcase, FaHome, FaTrain, FaUser} from 'react-icons/fa';
 import {FaCalculator, FaLocationDot, FaUsers} from "react-icons/fa6";
 import Link from "next/link";
 import {useStorage} from "@/utils/useStorage";
+import {CONSTANTS} from "@/utils/constants";
 
 export default function Sidebar() {
     const {isOpen, setIsOpen} = useStorage(state => state);
@@ -18,13 +19,13 @@ export default function Sidebar() {
                     isOpen ? '' : '-translate-x-full'
                 }`}>
                 <ul className="flex flex-col flex-1 text-default-violet-900 text-lg font-medium">
-                    <SidebarItem icon={<FaHome/>} name="Главная" link={"/"} toggleMenu={toggleMenu}/>
-                    <SidebarItem icon={<FaUser/>} name="О компании" link={""} toggleMenu={toggleMenu}/>
+                    <SidebarItem icon={<FaHome/>} name="Главная" link={CONSTANTS.baseURL + "/"} toggleMenu={toggleMenu}/>
+                    <SidebarItem icon={<FaUser/>} name="О компании" link={CONSTANTS.baseURL + "#about-us"} toggleMenu={toggleMenu}/>
                     <SidebarItem icon={<FaCalculator/>} name="Рассчет расстояния" link={""} toggleMenu={toggleMenu}/>
                     <SidebarItem icon={<FaTrain/>} name="Запрос услуги" link={"/request"} toggleMenu={toggleMenu}/>
-                    <SidebarItem icon={<FaUsers/>} name="Наши клиенты" link={"#client"} toggleMenu={toggleMenu}/>
+                    <SidebarItem icon={<FaUsers/>} name="Наши клиенты" link={CONSTANTS.baseURL + "#client"} toggleMenu={toggleMenu}/>
                     <SidebarItem icon={<FaBriefcase/>} name="Вакансии" link={"/vacancy"} toggleMenu={toggleMenu}/>
-                    <SidebarItem icon={<FaLocationDot/>} name="Контакты" link={"#contact"} toggleMenu={toggleMenu}/>
+                    <SidebarItem icon={<FaLocationDot/>} name="Контакты" link={CONSTANTS.baseURL + "#contact"} toggleMenu={toggleMenu}/>
                 </ul>
             </div>
         </>
