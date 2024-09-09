@@ -1,65 +1,8 @@
 import {ChangeEvent, FormEvent} from "react";
 import WagonCargoData from "@/components/request-form/utils/form-data";
-import axios from "axios";
-import {toast} from 'react-hot-toast';
+
 
 export default class FormMethods {
-    public static async handleSubmit(event: FormEvent<HTMLFormElement>, formData: WagonCargoData, preferredContact: string) {
-        event.preventDefault();
-        console.log(formData);
-        const botToken = "7215757624:AAFpHSlkBTHMgFIM8QQ_gVpCHeOimYq8XKc";
-        const chatId = "-4159746367";
-        let message: string;
-        if (formData.requestType === "Поиск вагона") {
-            message = `
-          🚂 Новая заявка: ${formData.requestType} 🚂
-Дорога: ${formData.railWagon}
-Станция: ${formData.station}
-Тип вагона: ${formData.wagonType}\n`;
-            if (formData.desiredDirection !== '') {
-                message += `Желаемое направление: ${formData.desiredDirection}\n`
-            } else {
-                message += `Желаемое направление: не указано\n`
-            }
-        } else {
-            message = `
-          🪨 Новая заявка: ${formData.requestType} 🪨
-Дорога: ${formData.rail}
-Станция отправления: ${formData.departure}
-Станция назначения: ${formData.destination}
-Наименование груза: ${formData.cargoType}
-Тип вагона: ${formData.wagonTypeForCargo}\n`;
-            if (formData.desiredRate != 0) {
-                message += `Желаемая ставка: ${formData.desiredRate}\n`
-            } else {
-                message += `Желаемая ставка: не указана\n`
-            }
-            if (formData.wagonRequirements !== '') {
-                message += `Требования к вагону: ${formData.wagonRequirements}\n`
-            } else {
-                message += `Требования к вагону: не указаны\n`
-            }
-        }
-        message += `Имя: ${formData.name}\n`;
-
-        if (preferredContact === 'phone') {
-            message += `Телефон: ${formData.phone}`;
-        } else {
-            message += `Email: ${formData.email}`;
-        }
-        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-
-        try {
-            await axios.post(url, {
-                chat_id: chatId,
-                text: message,
-            });
-            toast.success('Заявка успешно отправлена!');
-        } catch (error) {
-            console.error('Error sending message to Telegram:', error);
-            toast.error('Произошла ошибка при отправке заявки, попробуйте позже.');
-        }
-    };
 
     public static isCurrentStepValid(step: number, formData: WagonCargoData): boolean {
         switch (step) {
