@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react';
+'use client'
+import React, {useEffect} from 'react';
+import {useStorage} from "@/utils/useStorage";
+import {OverlayProps} from "next/dist/client/components/react-dev-overlay/internal/components/Overlay/Overlay";
 
-interface OverlayProps {
-    isVisible: boolean;
-    onClose: () => void;
-}
+const Overlay: React.FC<OverlayProps> = () => {
+    const {isOpen, setIsOpen} = useStorage(state => state);
 
-const Overlay: React.FC<OverlayProps> = ({ isVisible, onClose }) => {
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
     useEffect(() => {
-        if (isVisible) {
+        if (isOpen) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'auto';
@@ -16,14 +20,15 @@ const Overlay: React.FC<OverlayProps> = ({ isVisible, onClose }) => {
         return () => {
             document.body.style.overflow = 'auto';
         };
-    }, [isVisible]);
+    }, [isOpen]);
 
-    if (!isVisible) return null;
+    if (!isOpen) return null;
+
 
     return (
         <div
             className="fixed inset-0 top-[72px] bg-black bg-opacity-50 z-30 flex items-center justify-center"
-            onClick={onClose}
+            onClick={toggleMenu}
         >
 
         </div>

@@ -1,7 +1,5 @@
 'use client'
-import Header from "@/components/header";
-import Sidebar from "@/components/sidebar";
-import React, {useState} from "react";
+import React from "react";
 import Hero from "@/components/hero";
 import CenteredTextWithBoxes from "@/components/centered-text-with-boxes";
 import SectionWithColumns from "@/components/section-with-columns";
@@ -16,15 +14,8 @@ import Overlay from "@/components/common/overlay";
 import ContactSection from "@/components/contact-section";
 
 export default function Home() {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
     return (
         <div className={"relative bg-gradient-to-b from-gray-100 via-purple-50 via-80% to-purple-200"}>
-            <Header toggleMenu={toggleMenu}/>
-            <Sidebar isOpen={isOpen} toggleMenu={toggleMenu}/>
             <Hero/>
             <CenteredTextWithBoxes/>
             <SectionWithColumns/>
@@ -35,8 +26,8 @@ export default function Home() {
             <Carousel/>
             <VacancySection/>
             <InspiringQuote/>
-            <ContactSection />
-            <Overlay isVisible={isOpen} onClose={toggleMenu}/>
+            <ContactSection/>
+            <Overlay/>
         </div>
     )
 }

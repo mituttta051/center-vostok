@@ -14,7 +14,7 @@ const VacancyPage: React.FC = () => {
               d="M5 12h14"/>
     </svg>;
     return (
-        <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
+        <div className="min-h-screen bg-gray-100 py-6 px-28 flex flex-col items-center">
             <Hero/>
             <div className={"w-full px-40 flex justify-start flex-col"}>
                 <div className={whiteCardClassname}>
