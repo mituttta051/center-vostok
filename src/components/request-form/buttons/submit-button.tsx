@@ -1,5 +1,5 @@
 import React from "react";
-import {FaCheck, FaPaperPlane} from "react-icons/fa6";
+import {FaCheck} from "react-icons/fa6";
 
 interface ButtonProps {
     onClick: ((e: any) => void) | undefined;

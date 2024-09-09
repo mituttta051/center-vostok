@@ -36,16 +36,23 @@ export default function SectionWithColumns() {
         },
     ];
     return (
-        <section className="py-12 h-screen">
-            <div className="container mx-auto px-4 text-center">
+        <section className="py-12 h-screen flex">
+            <div className="container  mx-auto px-4 text-center content-center">
                 <SectionTitle title={"Ценности компании"}/>
-                <div className="flex flex-col md:flex-row justify-around">
+                <div className="flex flex-col md:flex-row justify-around gap-10 mt-16">
                     {columns.map((column, index) => (
                         <div
                             key={index}
-                            className="md:w-1/3 p-4 mb-8 md:mb-0 animate-fade-in-up"
+                            className="md:w-1/3 p-8 mb-8 md:mb-0
+                                       bg-white/30
+                                       backdrop-blur-lg
+                                       border border-gray-200
+                                       rounded-lg
+                                       shadow-lg
+                                       bg-gradient-to-br from-transparent to-gray-100 bg-opacity-20"
                         >
-                            <div className="flex justify-center items-center w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 group transition-colors ease-in-out duration-300">
+                            <div
+                                className="flex justify-center items-center w-16 h-16 mx-auto mb-4 rounded-full group transition-colors ease-in-out duration-300">
                                 {column.svg}
                             </div>
                             <h3 className="text-2xl font-semibold mb-4">{column.subtitle}</h3>

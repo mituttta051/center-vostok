@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import FormField from "@/components/vacancy/form-field";
 import Button from "@/components/common/button";
 

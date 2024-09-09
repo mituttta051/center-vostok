@@ -1,4 +1,5 @@
 import React from 'react';
+import UnderLine from "@/components/common/under-line";
 
 const InspiringQuote: React.FC = () => {
     return (
@@ -7,7 +8,7 @@ const InspiringQuote: React.FC = () => {
                 <blockquote className="text-2xl font-semibold italic text-gray-800">
                     Единственный способ добиться успеха в работе - это любить то, что вы делаете.
                 </blockquote>
-                <div className="w-[100%] h-1 bg-default-violet-500 mt-4 ml-auto"></div>
+                <UnderLine classname={"mt-4 ml-auto"}/>
             </div>
         </section>
     );
