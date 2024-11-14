@@ -11,7 +11,7 @@ export default function Step(props: StepProps) {
 
     return (
         <div className={"w-full py-4"}>
-            <SectionTitle title={props.title} className="text-xl mb-4"/>
+            <h2 className={`text-2xl font-bold mb-6`}>{props.title}</h2>
             {childrenArray.map((child, index) => (
                 <div key={index}>
                     {child}

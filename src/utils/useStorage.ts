@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { computed } from 'zustand-computed-state';
+import {create} from 'zustand';
+import {computed} from 'zustand-computed-state';
 
 interface State {
     isOpen: boolean;

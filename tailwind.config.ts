@@ -25,7 +25,15 @@ const config: Config = {
             darkBlue: "#4CA6CE",
             },
         },
-
+        animation: {
+            'infinite-scroll': 'infinite-scroll 70s linear infinite',
+        },
+        keyframes: {
+            'infinite-scroll': {
+                from: { transform: 'translateX(0)' },
+                to: { transform: 'translateX(-100%)' },
+            }
+        }
     },
   },
   plugins: [],

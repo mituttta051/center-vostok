@@ -1,18 +1,19 @@
 'use client';
-import React, {ChangeEvent, FormEvent, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
 import WagonCargoData from "@/components/request-form/utils/form-data";
 import FormMethods from "@/components/request-form/utils/form-methods";
 import ProgressBar from "@/components/request-form/progress-bar";
-import FwdButton from "@/components/request-form/buttons/fwd-button";
-import BwdButton from "@/components/request-form/buttons/bwd-button";
-import SubmitButton from "@/components/request-form/buttons/submit-button";
 import InputField from "@/components/request-form/step/input-field";
 import Step from "@/components/request-form/step/step";
-import RadioInput from "@/components/request-form/step/radio-input";
 import {toast} from "react-hot-toast";
 import axios from "axios";
 import {useRouter} from "next/navigation";
+import {FaTrain} from "react-icons/fa";
+import Button from "@/components/common/button";
+import {FaArrowLeftLong, FaArrowRightLong, FaBox, FaCheck} from "react-icons/fa6";
+import {CONSTANTS} from "@/utils/constants";
+// TODO mobile version
 
 export default function MultiStepForm() {
     const router = useRouter();
@@ -41,65 +42,19 @@ export default function MultiStepForm() {
         setPreferredContact(e.target.value);
     };
 
-    function handleSubmit(event: FormEvent<HTMLFormElement>, formData: WagonCargoData, preferredContact: string) {
-        event.preventDefault();
-        console.log(formData);
-        const botToken = "7215757624:AAFpHSlkBTHMgFIM8QQ_gVpCHeOimYq8XKc";
-        const chatId = "-4159746367";
-        let message: string;
-        if (formData.requestType === "Поиск вагона") {
-            message = `
-          🚂 Новая заявка: ${formData.requestType} 🚂
-Дорога: ${formData.railWagon}
-Станция: ${formData.station}
-Тип вагона: ${formData.wagonType}\n`;
-            if (formData.desiredDirection !== '') {
-                message += `Желаемое направление: ${formData.desiredDirection}\n`
-            } else {
-                message += `Желаемое направление: не указано\n`
-            }
-        } else {
-            message = `
-          🪨 Новая заявка: ${formData.requestType} 🪨
-Дорога: ${formData.rail}
-Станция отправления: ${formData.departure}
-Станция назначения: ${formData.destination}
-Наименование груза: ${formData.cargoType}
-Тип вагона: ${formData.wagonTypeForCargo}\n`;
-            if (formData.desiredRate != 0) {
-                message += `Желаемая ставка: ${formData.desiredRate}\n`
-            } else {
-                message += `Желаемая ставка: не указана\n`
-            }
-            if (formData.wagonRequirements !== '') {
-                message += `Требования к вагону: ${formData.wagonRequirements}\n`
-            } else {
-                message += `Требования к вагону: не указаны\n`
-            }
-        }
-        message += `Имя: ${formData.name}\n`;
-
-        if (preferredContact === 'phone') {
-            message += `Телефон: ${formData.phone}`;
-        } else {
-            message += `Email: ${formData.email}`;
-        }
-        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-        toast.promise(axios.post(url, {
-            chat_id: chatId,
-            text: message,
-        }), {
+    function handleSubmit(formData: WagonCargoData) {
+        const url = CONSTANTS.backendBaseURL + '/sendForm'
+        toast.promise(axios.post(url, formData), {
             loading: 'Отправка заявки...',
             success: () => {
                 router.push("/");
-                return 'Заявка успешно отправлена!';
+                return 'Спасибо за заявку! Наши менеджеры уже приступили к обработке вашего запроса';
             },
-            error: (error) => {
-                console.error('Error sending message to Telegram:', error);
+            error: () => {
                 return 'Произошла ошибка при отправке заявки, попробуйте позже.';
             }
         })
-    };
+    }
 
     const renderStep = () => {
         return (
@@ -116,91 +71,123 @@ export default function MultiStepForm() {
                         switch (step) {
                             case 0:
                                 return (
-                                    <Step title="Тип услуги">
-                                        <RadioInput
-                                            label="Поиск вагона"
-                                            name="requestType"
-                                            value="Поиск вагона"
-                                            checked={formData.requestType === 'Поиск вагона'}
-                                            type="radio"
-                                            handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
-                                        />
-                                        <RadioInput
-                                            label="Поиск груза"
-                                            name="requestType"
-                                            value="Поиск груза"
-                                            checked={formData.requestType === 'Поиск груза'}
-                                            type="radio"
-                                            handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
-                                        />
+                                    <Step title="Выберите интересующую Вас услугу">
+                                        <div className={'grid grid-cols-2 gap-4 my-8'}>
+                                            <div
+                                                className={'border border-gray-200 transition ease-in-out duration-200 hover:shadow-xl hover:-translate-y-1.5 rounded-xl p-4 cursor-pointer'}
+                                                onClick={() => {
+                                                    setFormData(() => {
+                                                        const newFormData = {
+                                                            ...formData,
+                                                            requestType: "Поиск груза",
+                                                        };
+                                                        FormMethods.nextStep(step, setStep, newFormData)
+                                                        return newFormData;
+                                                    });
+                                                }}
+                                            >
+                                                <FaBox className="size-8 mb-4"/>
+                                                <p className={'text-lg'}>Поиск груза</p>
+                                            </div>
+                                            <div
+                                                className={'border border-gray-200 transition ease-in-out duration-200 hover:shadow-xl hover:-translate-y-1.5 rounded-xl p-4 cursor-pointer'}
+                                                onClick={() => {
+                                                    setFormData(() => {
+                                                        const newFormData = {
+                                                            ...formData,
+                                                            requestType: "Поиск вагона",
+                                                        };
+                                                        FormMethods.nextStep(step, setStep, newFormData)
+                                                        return newFormData;
+                                                    });
+                                                }}
+                                            >
+                                                <FaTrain className="size-8 mb-4"/>
+                                                <p className={'text-lg'}>Поиск вагона</p>
+                                            </div>
+                                        </div>
                                     </Step>
                                 );
                             case 1:
-                                return formData.requestType === 'Поиск вагона' ? (
-                                    <Step title="Поиск вагона">
+                                return formData.requestType === 'Поиск груза' ? (
+                                    <Step title="Поиск груза">
                                         <InputField
-                                            label="Укажите дорогу"
+                                            label={<span>Укажите дорогу <span className="text-red-500">*</span></span>}
                                             name="railWagon"
                                             value={formData.railWagon}
                                             type="text"
                                             handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            className={'mb-4'}
+                                            placeholder={"МСК"}
                                         />
                                         <InputField
-                                            label="Укажите станцию"
+                                            label={<span>Укажите станцию <span className="text-red-500">*</span></span>}
                                             name="station"
                                             value={formData.station}
                                             type="text"
                                             handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            className={'mb-4'}
+                                            placeholder={"Берники"}
                                         />
                                         <InputField
-                                            label="Тип вагона"
+                                            label={<span>Тип вагона <span className="text-red-500">*</span></span>}
                                             name="wagonType"
                                             value={formData.wagonType}
                                             type="text"
                                             handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            placeholder={"Полувагон"}
                                         />
                                     </Step>
                                 ) : (
-                                    <Step title="Поиск груза">
+                                    <Step title="Поиск вагона">
                                         <InputField
-                                            label="Укажите дорогу"
+                                            label={<span>Укажите дорогу <span className="text-red-500">*</span></span>}
                                             name="rail"
                                             value={formData.rail}
                                             type="text"
                                             handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            className={'mb-4'}
+                                            placeholder={"СВР"}
                                         />
                                         <InputField
-                                            label="Укажите станцию отправления"
+                                            label={<span>Укажите станцию отправления <span className="text-red-500">*</span></span>}
                                             name="departure"
                                             value={formData.departure}
                                             type="text"
                                             handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            className={'mb-4'}
+                                            placeholder={"Войновка"}
                                         />
                                         <InputField
-                                            label="Укажите станцию назначения"
+                                            label={<span>Укажите станцию назначения <span className="text-red-500">*</span></span>}
                                             name="destination"
                                             value={formData.destination}
                                             type="text"
                                             handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            className={'mb-4'}
+                                            placeholder={"Трубная"}
                                         />
                                         <InputField
-                                            label="Наименование груза"
+                                            label={<span>Наименование груза <span className="text-red-500">*</span></span>}
                                             name="cargoType"
                                             value={formData.cargoType}
                                             type="text"
                                             handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            className={'mb-4'}
+                                            placeholder={"Лом черных металлов"}
                                         />
                                         <InputField
-                                            label="Тип вагона"
+                                            label={<span>Тип вагона <span className="text-red-500">*</span></span>}
                                             name="wagonTypeForCargo"
                                             value={formData.wagonTypeForCargo}
                                             type="text"
                                             handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            placeholder={"Полувагон"}
                                         />
                                     </Step>
                                 );
                             case 2:
-                                return formData.requestType === 'Поиск вагона' ? (
+                                return formData.requestType === 'Поиск груза' ? (
                                     <Step title="Дополнительная информация">
                                         <InputField
                                             label="Желаемое направление"
@@ -208,6 +195,7 @@ export default function MultiStepForm() {
                                             value={formData.desiredDirection}
                                             type="text"
                                             handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            placeholder={"ЮУР"}
                                         />
                                     </Step>
                                 ) : (
@@ -219,6 +207,7 @@ export default function MultiStepForm() {
                                                 value={formData.desiredRate === 0 ? "" : formData.desiredRate}
                                                 type="number"
                                                 handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                                placeholder={"120 000"}
                                             />
                                         </div>
                                         <div>
@@ -228,6 +217,7 @@ export default function MultiStepForm() {
                                                 value={formData.wagonRequirements}
                                                 type="text"
                                                 handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                                placeholder={"88 м^3"}
                                             />
                                         </div>
                                     </Step>
@@ -236,49 +226,30 @@ export default function MultiStepForm() {
                                 return (
                                     <Step title="Контактная информация">
                                         <InputField
-                                            label="ФИО"
+                                            label={<span>ФИО <span className="text-red-500">*</span></span>}
                                             name="name"
                                             value={formData.name}
                                             type="text"
                                             handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            className={'mb-4'}
                                         />
-                                        <div className="flex justify-start gap-5 mt-5">
-                                            <RadioInput
-                                                label="Телефон"
-                                                name="preferredContact"
-                                                value="phone"
-                                                checked={preferredContact === 'phone'}
-                                                type="radio"
-                                                handleChange={handleContactChange}
-                                            />
-                                            <RadioInput
-                                                label="Email"
-                                                name="preferredContact"
-                                                value="email"
-                                                checked={preferredContact === 'email'}
-                                                type="radio"
-                                                handleChange={handleContactChange}
-                                            />
-                                        </div>
-                                        <div className={"mt-3"}>
-                                            {preferredContact === 'phone' ? (
-                                                <InputField
-                                                    label="Телефон"
-                                                    name="phone"
-                                                    value={formData.phone}
-                                                    type="tel"
-                                                    handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
-                                                />
-                                            ) : (
-                                                <InputField
-                                                    label="Email"
-                                                    name="email"
-                                                    value={formData.email}
-                                                    type="email"
-                                                    handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
-                                                />
-                                            )}
-                                        </div>
+                                        <InputField
+                                            label="Телефон"
+                                            name="phone"
+                                            value={formData.phone}
+                                            type="tel"
+                                            handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            className={'mb-4'}
+                                        />
+                                        <InputField
+                                            label="Email"
+                                            name="email"
+                                            value={formData.email}
+                                            type="email"
+                                            handleChange={(e) => FormMethods.handleChange(e, formData, setFormData)}
+                                            className={'mb-4'}
+                                        />
+                                        <p className={'text-gray-500'}>Введите номер телефона или электронную почту, чтобы мы могли связаться с Вами.</p>
                                     </Step>
                                 );
                             default:
@@ -291,25 +262,101 @@ export default function MultiStepForm() {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-10 border border-gray-300 rounded-lg shadow-md h-[650px]">
-            <div className="flex flex-col h-full">
-                <form onSubmit={(e) => handleSubmit(e, formData, preferredContact)}
-                      className="flex-grow">
-                    <ProgressBar step={step}/>
-                    {renderStep()}
-                </form>
-                <div className="mt-4 flex justify-between bg-white sticky bottom-0 p-4 border-t border-gray-200">
-                    {step > 0 && (
-                        <BwdButton step={step} onClick={(e) => FormMethods.prevStep(e, step, setStep)}/>
-                    )}
-                    <div className="flex justify-end flex-grow">
-                        {step < 3 ? (
-                            <FwdButton disabled={!FormMethods.isCurrentStepValid(step, formData)}
-                                       onClick={FormMethods.isCurrentStepValid(step, formData) ? (e) => FormMethods.nextStep(e, step, setStep, formData) : undefined}/>
-                        ) : (
-                            <SubmitButton onClick={(e) => handleSubmit(e, formData, preferredContact)}/>
-                        )}
-                    </div>
+        <div className={'h-[calc(100vh-57px)] w-full mt-[57px] flex relative z-0 px-10'}
+             style={{
+                 backgroundImage: 'url(/request/bg.jpg)',
+                 backgroundSize: 'cover',
+                 backgroundPosition: 'center'
+             }}>
+            <div className="z-10 absolute inset-0 bg-black opacity-80"></div>
+            <div className={'w-full flex flex-grow h-full ml-10 z-20 items-center'}>
+                <h1 className={'text-5xl text-gray-100 font-bold tracking-wide'}>Запрос услуги</h1>
+            </div>
+            <div className="z-20 bg-gray-100 p-10 border border-gray-500 rounded-2xl shadow-md my-10 mr-10">
+                <div className="flex flex-col h-full w-[450px]">
+                    <form onSubmit={() => handleSubmit(formData)}
+                          className="flex-grow">
+                        <motion.div
+                            className={'mb-4'}
+                            initial={{
+                                opacity: 0,
+                                y: -10
+                            }}
+                            animate={step > 0 ? {
+                                opacity: 1,
+                                y: 0
+                            } : {
+                                opacity: 0,
+                                y: -10
+                            }}
+                            transition={{duration: 0.6, ease: "easeInOut"}}
+                        >
+                            <ProgressBar step={step}/>
+                        </motion.div>
+
+                        {renderStep()}
+                    </form>
+                    <motion.div
+                        className={''}
+                        initial={{
+                            opacity: 0,
+                            y: 10,
+                        }}
+                        animate={step > 0 ? {
+                            opacity: 1,
+                            y: 0
+                        } : {
+                            opacity: 0,
+                            y: 10,
+                        }}
+                        transition={{duration: 0.6, ease: "easeInOut"}}
+                    >
+                        <div
+                            className="mt-4 flex justify-between sticky bottom-0 pt-8 border-t border-gray-300 gap-4"
+                        >
+                            <Button
+                                className={'bg-default-violet-500 hover:bg-default-violet-900 tracking-wide w-full' + (step === 0 ? ' cursor-default' : '')}
+                                onClick={() => {
+                                    FormMethods.prevStep(step, setStep)
+                                }}
+                                type={'button'}
+                            >
+                                <div className={'flex gap-2 items-center justify-center'}>
+                                    <FaArrowLeftLong className={''}/>
+                                    <p>Назад</p>
+                                </div>
+                            </Button>
+                            {step < 3 ? (
+                                <Button className={'tracking-wide w-full ' + (FormMethods.isCurrentStepValid(step, formData) ? ' hover:bg-default-violet-900' : ' cursor-not-allowed bg-gray-400') + (step === 0 ? ' bg-gray-100 cursor-default' : ' bg-default-violet-500')}
+                                        onClick={() => {
+                                            if (!FormMethods.isCurrentStepValid(step, formData)) {
+                                                console.log("Invalid step");
+                                            }
+                                            FormMethods.nextStep(step, setStep, formData)
+                                        }} type={'button'}>
+                                    <div className={'flex gap-2 items-center justify-center'}>
+                                        <p>Вперёд</p>
+                                        <FaArrowRightLong className={''}/>
+                                    </div>
+                                </Button>
+                            ) : (
+                                <Button
+                                    className={'bg-default-violet-500 tracking-wide w-full' + (FormMethods.isCurrentStepValid(step, formData) ? ' hover:bg-default-violet-900' : ' cursor-not-allowed bg-gray-400')}
+                                    onClick={() => {
+                                        if (!FormMethods.isCurrentStepValid(step, formData)) {
+                                            console.log("Invalid step");
+                                            return;
+                                        }
+                                        handleSubmit(formData)
+                                    }} type={'button'}>
+                                    <div className={'flex gap-2 items-center justify-center'}>
+                                        <p>Отправить</p>
+                                        <FaCheck className={''}/>
+                                    </div>
+                                </Button>
+                            )}
+                        </div>
+                    </motion.div>
                 </div>
             </div>
         </div>

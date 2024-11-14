@@ -8,6 +8,7 @@ interface RadioInputProps {
     type: string;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
 export default function RadioInput(props: RadioInputProps) {
     return (
 

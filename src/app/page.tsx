@@ -1,32 +1,29 @@
 'use client'
 import React from "react";
 import Hero from "@/components/hero";
-import CenteredTextWithBoxes from "@/components/centered-text-with-boxes";
-import SectionWithColumns from "@/components/section-with-columns";
 import LineGraph from "@/components/line-graph";
-import TrainCarriages from "@/components/train-carriages";
-import Carousel from "@/components/carousel";
-import IconsSection from "@/components/icon-section";
 import VacancySection from "@/components/vacancy/vacancy-card";
 import SectionWithImage from "@/components/section-with-image";
-import InspiringQuote from "@/components/qoute";
-import Overlay from "@/components/common/overlay";
+import InspiringQuote from "@/components/quote";
 import ContactSection from "@/components/contact-section";
-
+import IconSection from "@/components/icon-section";
+import Carousel from "@/components/carousel";
+import FeatureSection from "@/components/feature-section";
+import WhyWe from "@/components/why-we";
+// <div className={"relative from-gray-100 via-gray-100 via-90% to-purple-200 w-full"}>
 export default function Home() {
     return (
-        <div className={"relative bg-gradient-to-b from-gray-100 via-purple-50 via-80% to-purple-200"}>
+        <div className={"relative bg-gray-100 w-full"}>
             <Hero/>
-            <CenteredTextWithBoxes/>
-            <SectionWithColumns/>
+            <FeatureSection/>
+            <WhyWe/>
             <LineGraph/>
             <SectionWithImage/>
-            <TrainCarriages/>
-            <IconsSection/>
+            <IconSection/>
+            <ContactSection/>
             <Carousel/>
             <VacancySection/>
             <InspiringQuote/>
-            <ContactSection/>
         </div>
     )
 }

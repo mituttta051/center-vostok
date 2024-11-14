@@ -15,17 +15,21 @@ export default function Sidebar() {
     return (
         <>
             <div
-                className={`pt-2 fixed left-0 h-screen w-64 rounded-r-lg shadow-lg flex flex-col z-50 bg-violet-50 transition-transform ${
+                className={`top-[57px] pt-2 fixed left-0 h-screen w-full bg-gray-100 shadow-lg flex flex-col z-50 transition-transform ${
                     isOpen ? '' : '-translate-x-full'
                 }`}>
-                <ul className="flex flex-col flex-1 text-default-violet-900 text-lg font-medium">
-                    <SidebarItem icon={<FaHome/>} name="Главная" link={CONSTANTS.baseURL + "/"} toggleMenu={toggleMenu}/>
-                    <SidebarItem icon={<FaUser/>} name="О компании" link={CONSTANTS.baseURL + "#about-us"} toggleMenu={toggleMenu}/>
-                    <SidebarItem icon={<FaCalculator/>} name="Рассчет расстояния" link={""} toggleMenu={toggleMenu}/>
+                <ul className="flex flex-col flex-1 text-gray-800 text-lg font-medium items-center">
+                    <SidebarItem icon={<FaHome/>} name="Главная" link={"/"}
+                                 toggleMenu={toggleMenu}/>
+                    <SidebarItem icon={<FaUser/>} name="О компании" link={"#about-us"}
+                                 toggleMenu={toggleMenu}/>
+                    {/*<SidebarItem icon={<FaCalculator/>} name="Рассчет расстояния" link={""} toggleMenu={toggleMenu}/>*/}
                     <SidebarItem icon={<FaTrain/>} name="Запрос услуги" link={"/request"} toggleMenu={toggleMenu}/>
-                    <SidebarItem icon={<FaUsers/>} name="Наши клиенты" link={CONSTANTS.baseURL + "#client"} toggleMenu={toggleMenu}/>
+                    <SidebarItem icon={<FaUsers/>} name="Наши партнеры" link={"#client"}
+                                 toggleMenu={toggleMenu}/>
                     <SidebarItem icon={<FaBriefcase/>} name="Вакансии" link={"/vacancy"} toggleMenu={toggleMenu}/>
-                    <SidebarItem icon={<FaLocationDot/>} name="Контакты" link={CONSTANTS.baseURL + "#contact"} toggleMenu={toggleMenu}/>
+                    <SidebarItem icon={<FaLocationDot/>} name="Контакты" link={"#contact"}
+                                 toggleMenu={toggleMenu}/>
                 </ul>
             </div>
         </>
@@ -42,7 +46,7 @@ interface SidebarItemProps {
 
 export function SidebarItem(props: SidebarItemProps) {
     return (
-        <li className="flex items-center px-4 py-2 hover:bg-violet-200 rounded-lg mx-2 cursor-pointer transition-colors duration-200">
+        <li className="flex items-center px-4 py-2 hover:bg-violet-100 rounded-lg mx-2 cursor-pointer transition-colors duration-200">
             <Link className={"flex items-center w-full"} href={props.link} onClick={props.toggleMenu}>
                 <span className="mr-3">{props.icon}</span>
                 <span>{props.name}</span>

@@ -1,70 +1,108 @@
 'use client'
 import React, {useState} from 'react';
+import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs';
+import {RxDotFilled} from 'react-icons/rx';
+import {AnimatePresence, motion} from 'framer-motion';
 import SectionTitle from "@/components/common/section-title";
+import Image from "next/image";
+import UnderLine from "@/components/common/under-line";
 
 export default function Carousel() {
-    const images = [
-        '/client-carousel/notebooks.png',
-        '/client-carousel/calendar.png',
-        '/client-carousel/cake1.png',
-        '/client-carousel/cake2.png'
+    const slides = [
+        {url: '/client-carousel/notebooks.png'},
+        {url: '/client-carousel/cake2.png'},
+        {url: '/client-carousel/calendar.png'},
+        {url: '/client-carousel/cake1.png'}
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const nextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    };
-
     const prevSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+        const isFirstSlide = currentIndex === 0;
+        const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
+        setCurrentIndex(newIndex);
     };
 
-    const goToSlide = (index: number) => {
-        setCurrentIndex(index);
+    const nextSlide = () => {
+        const isLastSlide = currentIndex === slides.length - 1;
+        const newIndex = isLastSlide ? 0 : currentIndex + 1;
+        setCurrentIndex(newIndex);
     };
 
+    const goToSlide = (slideIndex: number) => {
+        setCurrentIndex(slideIndex);
+    };
+
+    const [isHovered, setIsHovered] = useState(false);
+    // Мы ценим постоянство наших клиентов
     return (
-        <>
-            <div className="p-10 h-screen">
-                <SectionTitle title="Мы благодарим партнеров за сотрудничество" className="text-center"/>
-                <div className="relative w-full max-w-2xl mx-auto my-10">
-                    <div className="overflow-hidden">
-                        <div className="flex transition-transform duration-500"
-                             style={{transform: `translateX(-${currentIndex * 100}%)`}}>
-                            {images.map((image, index) => (
-                                <img key={index} src={image} alt={`Slide ${index}`} className="w-full flex-shrink-0"/>
-                            ))}
+        <div className={'p-20 bg-gray-200'}>
+            {/*<h2 className={`text-4xl font-medium animate-fade-in-down opacity-100 text-gray-800 text-center mb-4`}>Мы ценим постоянное сотрудничество с нашими клиентами</h2>*/}
+            <SectionTitle title={"Мы ценим постоянство наших клиентов"}
+                          className={'text-left mb-4'}/>
+            <UnderLine/>
+            <div className='max-w-[1400px] h-[780px] w-full m-auto py-16 px-4 relative group'
+                 onMouseEnter={() => setIsHovered(true)}
+                 onMouseLeave={() => setIsHovered(false)}>
+
+                <div className="relative w-full h-full">
+                    {slides.map((slide, slideIndex) => (
+                        <motion.div
+                            key={slideIndex}
+                            initial={{opacity: 0}}
+                            animate={{opacity: currentIndex === slideIndex ? 1 : 0}}
+                            exit={{opacity: 0}}
+                            transition={{duration: 0.3}}
+                            className='absolute top-0 left-0 w-full h-full'
+                        >
+                            <Image src={slides[slideIndex].url} alt={"image"} priority={true} width={1920} height={1080}
+                                   className='w-full h-full rounded-2xl bg-center bg-cover duration-500'/>
+                        </motion.div>
+                    ))}
+                </div>
+
+                <AnimatePresence>
+                    {isHovered && (
+                        <>
+                            {/* Left Arrow */}
+                            <motion.div
+                                className='absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'
+                                onClick={prevSlide}
+                                initial={{opacity: 0, x: -20}}
+                                animate={{opacity: 1, x: 0}}
+                                exit={{opacity: 0, x: -20}}
+                                transition={{duration: 0.3}}
+                            >
+                                <BsChevronCompactLeft size={30}/>
+                            </motion.div>
+
+                            {/* Right Arrow */}
+                            <motion.div
+                                className='absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'
+                                onClick={nextSlide}
+                                initial={{opacity: 0, x: 20}}
+                                animate={{opacity: 1, x: 0}}
+                                exit={{opacity: 0, x: 20}}
+                                transition={{duration: 0.3}}
+                            >
+                                <BsChevronCompactRight size={30}/>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
+
+                <div className='flex top-4 justify-center py-2'>
+                    {slides.map((slide, slideIndex) => (
+                        <div
+                            key={slideIndex}
+                            onClick={() => goToSlide(slideIndex)}
+                            className='text-2xl cursor-pointer'
+                        >
+                            <RxDotFilled/>
                         </div>
-                    </div>
-
-                    <button
-                        onClick={prevSlide}
-                        className="absolute left-2 -ml-10 top-1/2 transform -translate-y-1/2 bg-default-violet-700 text-white p-2 rounded-full"
-                    >
-                        &lt;
-                    </button>
-
-                    <button
-                        onClick={nextSlide}
-                        className="absolute right-2 -mr-10 top-1/2 transform -translate-y-1/2 bg-default-violet-700 text-white p-2 rounded-full"
-                    >
-                        &gt;
-                    </button>
-
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -mb-6 flex space-x-2">
-                        {images.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => goToSlide(index)}
-                                className={`w-3 h-3 rounded-full ${
-                                    index === currentIndex ? 'bg-default-violet-900' : 'bg-default-violet-700'
-                                }`}
-                            />
-                        ))}
-                    </div>
+                    ))}
                 </div>
             </div>
-        </>
+        </div>
     );
-};
+}

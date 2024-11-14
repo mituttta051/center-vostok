@@ -1,7 +1,7 @@
 import React from "react";
 
 interface HeroItemProps {
-    children: string,
+    children: React.ReactNode,
     svg: React.ReactNode
 }
 

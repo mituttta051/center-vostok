@@ -8,7 +8,7 @@ import Overlay from "@/components/common/overlay";
 import React from "react";
 
 
-const ptSerif = PT_Serif({subsets: ["latin"], weight: ["400", "700"], style: ["normal", "italic"]});
+const ptSerif = PT_Serif({subsets: ["latin", 'cyrillic'], weight: ["400", "700"], style: ["normal", "italic"]});
 
 export const metadata: Metadata = {
     title: "center vostok",
@@ -23,6 +23,9 @@ export default function RootLayout({
 
     return (
         <html lang="ru">
+        <head>
+            <link rel="icon" href="/mainLogo.png" sizes="any"/>
+        </head>
         <body className={`${ptSerif.className} `}>
         <Toaster
             position="top-center"

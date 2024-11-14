@@ -27,7 +27,7 @@ const Overlay: React.FC<OverlayProps> = () => {
 
     return (
         <div
-            className="fixed inset-0 top-[72px] bg-black bg-opacity-50 z-30 flex items-center justify-center"
+            className="fixed inset-0 top-[57px] bg-black bg-opacity-50 z-30 flex items-center justify-center"
             onClick={toggleMenu}
         >
 
